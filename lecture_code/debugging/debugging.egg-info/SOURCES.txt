@@ -1,6 +1,0 @@
-setup.cfg
-debugging.egg-info/PKG-INFO
-debugging.egg-info/SOURCES.txt
-debugging.egg-info/dependency_links.txt
-debugging.egg-info/requires.txt
-debugging.egg-info/top_level.txt
