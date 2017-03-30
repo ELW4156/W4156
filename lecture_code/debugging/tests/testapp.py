@@ -27,7 +27,6 @@ class ApplicationTests(unittest.TestCase):
         data = json.loads(res.data)
         self.assertEqual(data['count'], count)
 
-
     def setUp(self):
         self.db_fd, service.app.config['DATABASE'] = tempfile.mkstemp()
         service.app.config['TESTING'] = True
@@ -47,13 +46,13 @@ class ApplicationTests(unittest.TestCase):
         self.assertCount(res, 1)
 
     def test_create_duplicate_user(self):
-        self.test_create_user()
+        res = self.app.get("/createuser/brian")
         res = self.app.get("/createuser/brian")
         self.assertFailure(res)
 
     def test_list_users(self):
         for u in self.one_direction:
-            res = self.test_create_user(u)
+            res = self.app.get("/createuser/" + u)
 
         res = self.app.get("/listusers")
         self.assertSuccess(res)
@@ -64,8 +63,14 @@ class ApplicationTests(unittest.TestCase):
         res = self.app.get("/countusers")
         self.assertCount(res, 4)
 
-    def test_for_this_bug(self):
+    def test_w4156(self):
+        # Committed and it should fail
+        res = self.app.get("/createuser/" + "ryan")
         res = self.app.get("/countusers")
+        self.assertCount(res, 1)
+
+        res = self.app.get("/countusers")
+        self.assertCount(res, 1)
 
     def tearDown(self):
         os.close(self.db_fd)
