@@ -1,0 +1,6 @@
+domain, score
+google.com, 1.0
+cnn.com, 0.5
+facebook.com, 0.25
+theguardian.com, 0.75
+invaliddomain, 0.5

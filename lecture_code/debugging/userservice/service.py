@@ -73,7 +73,9 @@ def create_user(name=None):
     """
     logging.debug("creatuser/%s", name)
     db = get_db()
-    exists = db.execute("select * from USERS where username == ?", (name,)).fetchone()
+    exists = db.execute("select * from USERS "
+                        "where username == ?",
+                        (name,)).fetchone()
     if exists:
         return jsonify(
             success=False,
@@ -92,7 +94,7 @@ def list_users():
     """
     {
     "success": true/false,
-    "users": { id: username, id:username}
+    "users": { username, username}
     "error": {
         "code": 123,
         "message": "An error occurred!"

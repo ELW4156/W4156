@@ -1,0 +1,53 @@
+---
+swagger: "2.0"
+info:
+  description: "Lets be as absolutely lazy as possible"
+  version: "1.0.0"
+  title: "W4156"
+host: "localhost"
+basePath: "/v1"
+schemes:
+- "https"
+produces:
+- "application/json"
+paths:
+  /listusers:
+    get:
+      tags:
+      - "Users"
+      summary: "List users"
+      description: "Get all the users\n"
+      operationId: "listusers_get"
+      parameters: []
+      responses:
+        200:
+          description: "An array of users"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/User"
+      x-swagger-router-controller: "swagger_server.controllers.users_controller"
+  /createuser/{username}:
+    get:
+      tags:
+      - "Users"
+      summary: "Create User"
+      description: "Create a user where blah blah blah blah\n"
+      operationId: "createuser_username_get"
+      parameters:
+      - name: "username"
+        in: "path"
+        description: "username to create"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Success"
+      x-swagger-router-controller: "swagger_server.controllers.users_controller"
+definitions:
+  User:
+    type: "object"
+    properties:
+      username:
+        type: "string"
+        description: "The first name of the user"
