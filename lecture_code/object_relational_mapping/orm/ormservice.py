@@ -14,10 +14,12 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True)
     email = db.Column(db.String(120), unique=True)
+    dob = db.Column(db.String(10), unique=False)
 
-    def __init__(self, username, email):
+    def __init__(self, username, email, dob):
         self.username = username
         self.email = email
+        self.dob = dob
 
     def __repr__(self):
         return '<User %r>' % self.username
@@ -39,7 +41,7 @@ def create_user(name=None):
             error={'code':0, 'message': "exists"}
         )
     else:
-        admin = User(name, name + '@foomail.com')
+        admin = User(name, name + '@foomail.com', '15/02/15')
         db.session.add(admin)
         db.session.commit()
         return jsonify(
